@@ -41,8 +41,8 @@ jobs:
       - name: add everything
         run: git add --all .
 
-     - name: create commit
-       run: git commit -m "Deploying to github-pages"
+      - name: create commit
+        run: git commit -m "Deploying to github-pages"
 
-    - name: push-force
-       run: git push --force origin gh-pages
+      - name: push-force
+        run: git push --force origin gh-pages
