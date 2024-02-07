@@ -32,6 +32,12 @@ jobs:
       - name: Publish .NET Core Project
         run: dotnet publish Testing/Testing.csproj -c:Release -p:GHPages=true -o release --nologo
 
+      - name: cd
+        run:  cd release/wwwroot
+
+      - name: ls
+        run: ls
+
       - name: add everything
         run: git add --all .
 
@@ -40,6 +46,3 @@ jobs:
 
     - name: push-force
        run: git push --force origin gh-pages
-
-    - name: ls
-      run: ls dist/Web/wwwroot
