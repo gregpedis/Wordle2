@@ -33,7 +33,7 @@ jobs:
         run: dotnet publish Wordle.csproj -c:Release -p:GHPages=true -o release --nologo
 
       - name: ls
-        run: ls dist/Web/wwwroot
+        run: ls release/wwwroot
 
       - name: Commit wwwroot to GitHub Pages
         uses: JamesIves/github-pages-deploy-action@3.7.1
