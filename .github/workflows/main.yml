@@ -23,26 +23,18 @@ jobs:
         uses: actions/setup-dotnet@v1
         with:
           dotnet-version: 8.0.x
-
+          
       # Install dotnet wasm buildtools workload
       - name: Install .NET WASM Build Tools
         run: dotnet workload install wasm-tools
-        
+          
       # Publishes Blazor project to the release-folder
       - name: Publish .NET Core Project
-        run: dotnet publish Testing/Testing.csproj -c:Release -p:GHPages=true -o release --nologo
+        run: dotnet publish Testing/Testing.csproj -c:Release -p:GHPages=true -o dist/Web --nologo
 
-      - name: cd
-        run:  cd release/wwwroot
-
-      - name: ls
-        run: ls
-
-      - name: add everything
-        run: git add --all .
-
-      - name: create commit
-        run: git commit -m "Deploying to github-pages"
-
-      - name: push-force
-        run: git push --force origin gh-pages
+      - name: Commit wwwroot to GitHub Pages
+        uses: JamesIves/github-pages-deploy-action@3.7.1
+        with:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          BRANCH: gh-pages
+          FOLDER: dist/Web/wwwroot
