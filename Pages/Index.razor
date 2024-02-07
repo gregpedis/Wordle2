@@ -1,0 +1,126 @@
+﻿@page "/"
+
+<PageTitle>Wordle</PageTitle>
+
+<div class="row justify-content-center">
+	<div class="col"></div> @* Spacing *@
+	<div class="col-auto">
+		<h1 style="color:gray">Wordle</h1>
+	</div>
+	<div class="col"></div> @* Spacing *@
+</div>
+
+<br />
+
+<div class="row justify-content-center">
+	<div class="col"></div> @* Spacing *@
+	<div class="col-auto">
+		@foreach (var attempt in attempts)
+		{
+			<AttemptRow Attempt="attempt"></AttemptRow>
+		}
+	</div>
+	<div class="col"></div> @* Spacing *@
+</div>
+
+<br />
+
+<Keyboard AddLetter="AddLetter" DeleteLetter="DeleteLetter" Submit="Submit"></Keyboard>
+
+@* --- DEBUG --- *@
+<div>
+	@for (int i = 0; i < attempts.Count; i++)
+	{
+		<span style="color:white">Index @i: @attempts[i].ToString()</span>
+		<br />
+	}
+	}
+</div>
+
+<div>
+	<span style="color:white">Row: @index</span>
+</div>
+@* --- DEBUG --- *@
+
+@code {
+
+	private string targetWord = string.Empty;
+	private int index = 0;
+	private List<Attempt> attempts = Enumerable.Range(0, 6).Select(x => new Attempt()).ToList();
+
+	protected override void OnInitialized() =>
+		targetWord = PickWord();
+
+	private void AddLetter(char letter)
+	{
+		var soFar = attempts[index].ToString().TrimEnd();
+		if (soFar.Length < 5)
+		{
+			var newValue = (soFar + letter).PadRight(5);
+			attempts[index].SetWord(newValue);
+		}
+	}
+
+	private void DeleteLetter()
+	{
+		var soFar = attempts[index].ToString().TrimEnd();
+		if (soFar.Length > 0)
+		{
+			var newValue = soFar.Substring(0, soFar.Length - 1).PadRight(5);
+			attempts[index].SetWord(newValue);
+		}
+	}
+
+	private void Submit()
+	{
+		var guess = attempts[index].ToString();
+		if (guess.TrimEnd().Length < 5)
+		{
+			// Either disable the button for <5, or show notification
+		}
+		else if (!WordExists(guess))
+		{
+			// Either disable the button for invalid, or show notification
+		}
+		else
+		{
+			// colorize letters
+			if (WordFound)
+			{
+				// show winning message
+				// show button for replay
+			}
+			else
+			{
+				if (index == 5)
+				{
+					// show losing message
+					// show button for replay
+				}
+				else
+				{
+					index++;
+				}
+			}
+		}
+	}
+
+	private bool WordFound =>
+		attempts[index].ToString() == targetWord;
+
+	// TODO: Move to Database service
+	private bool WordExists(string guess) => true;
+
+	// TODO: Move to Database service
+	private string PickWord() => "APPLE";
+
+	// TODO: Move to Database service, use all the words from beautiful soup
+	private List<string> Database = new()
+	{
+		"APPLE",
+		"INDIE",
+		"AUDIO",
+		"TASTY"
+	};
+}
+

@@ -1,0 +1,12 @@
+﻿<button class="key" @onclick="NotifyParent">@Letter</button>
+
+@code {
+	[Parameter]
+	public char Letter { get; set; }
+
+	[Parameter]
+	public EventCallback<char> Pressed { get; set; }
+
+	private void NotifyParent() =>
+		Pressed.InvokeAsync(Letter);
+}

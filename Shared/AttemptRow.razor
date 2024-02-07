@@ -1,0 +1,11 @@
+﻿<div class="row">
+	@foreach (var letter in Attempt.Letters)
+	{
+		<span class="letter @letter.Styling">@letter.Value</span>
+	}
+</div>
+
+@code {
+	[Parameter]
+	public Attempt Attempt { get; set; }
+}

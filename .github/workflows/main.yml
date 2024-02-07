@@ -30,7 +30,7 @@ jobs:
           
       # Publishes Blazor project to the release-folder
       - name: Publish .NET Core Project
-        run: dotnet publish Testing/Testing.csproj -c:Release -p:GHPages=true -o dist/Web --nologo
+        run: dotnet publish Wordle.csproj -c:Release -p:GHPages=true -o release --nologo
 
       - name: ls
         run: ls dist/Web/wwwroot
@@ -40,4 +40,4 @@ jobs:
         with:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           BRANCH: gh-pages
-          FOLDER: dist/Web/wwwroot
+          FOLDER: release/wwwroot

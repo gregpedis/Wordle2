@@ -1,0 +1,105 @@
+@import url('open-iconic/font/css/open-iconic-bootstrap.min.css');
+
+html, body {
+    font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+}
+
+a, .btn-link {
+    color: #0071c1;
+}
+
+.btn-primary {
+    color: #fff;
+    background-color: #1b6ec2;
+    border-color: #1861ac;
+}
+
+.btn:focus, .btn:active:focus, .btn-link.nav-link:focus, .form-control:focus, .form-check-input:focus {
+    box-shadow: 0 0 0 0.1rem white, 0 0 0 0.25rem #258cfb;
+}
+
+
+/*MY SHIT*/
+
+.footer {
+    color: #000; /* Text color for the footer */
+    text-align: center; /* Center-align the text */
+    padding: 20px 0; /* Add some padding top and bottom */
+    position: fixed; /* Position the footer at the bottom of the viewport */
+    width: 100%; /* Make the footer span the full width of the viewport */
+    bottom: 0; /* Position the footer at the bottom */
+}
+
+.bg-container {
+    background-color: #181513;
+    /*background-image: linear-gradient(to bottom, #d16ba5, #c777b9, #ba83ca, #aa8fd8, #9a9ae1, #8aa7ec, #79b3f4, #69bff8, #52cffe, #41dfff, #46eefa, #5ffbf1);*/
+    width: 100%;
+    height: 100vh;
+    background-size: cover;
+    background-position: center; /* Center the image */
+    background-repeat: no-repeat; /* Do not repeat the image */
+}
+
+.letter {
+    display: flex;
+    justify-content: center;
+    align-items:center;
+    width: 100px;
+    height: 100px;
+    border: 1px solid gray; /* Add styling for the letter container */
+    margin: 5px; /* Adjust spacing between letters */
+    font-family: Arial, sans-serif; /* Specify font family */
+    font-weight: bold; /* Optionally, specify font weight */
+    font-size: 24px; /* Adjust the font size as needed */
+    color: white;
+}
+
+.l1 {
+}
+
+.l2 {
+    background-color: green;
+}
+
+.l3 {
+    background-color: darkgoldenrod;
+}
+
+.l4 {
+    background-color: darkgray;
+}
+
+.key {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 1.25em;
+    width: 45px; /* Adjust width as needed */
+    height: 60px; /* Adjust height as needed */
+    background-color: #868686; /* Button background color */
+    cursor: pointer; /* Cursor style on hover */
+    margin-left: 10px;
+    margin-top:5px;
+    border-radius: 7px;
+}
+
+
+.big-key {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 0.9em;
+    font-weight: bold;
+    width: 70px; /* Adjust width as needed */
+    height: 60px; /* Adjust height as needed */
+    background-color: #868686; /* Button background color */
+    cursor: pointer; /* Cursor style on hover */
+    margin-left: 10px;
+    border-radius: 7px;
+}
+
+.thingy {
+    justify-content: center;
+    align-items: center;
+    display: grid;
+}
