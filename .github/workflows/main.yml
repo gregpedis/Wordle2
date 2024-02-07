@@ -30,14 +30,16 @@ jobs:
         
       # Publishes Blazor project to the release-folder
       - name: Publish .NET Core Project
-        run: dotnet publish Testing/Testing.csproj -c:Release -p:GHPages=true -o dist/Web --nologo
+        run: dotnet publish Testing/Testing.csproj -c:Release -p:GHPages=true -o release --nologo
 
-      - name: Commit wwwroot to GitHub Pages
-        uses: JamesIves/github-pages-deploy-action@3.7.1
-        with:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-          BRANCH: gh-pages
-          FOLDER: dist/Web/wwwroot
+      - name: add everything
+        run: git add --all .
 
-      - name: ls
-        run: ls dist/Web/wwwroot
+     - name: create commit
+       run: git commit -m "Deploying to github-pages"
+
+    - name: push-force
+       run: git push --force origin gh-pages
+
+    - name: ls
+      run: ls dist/Web/wwwroot
