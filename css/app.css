@@ -55,18 +55,15 @@ a, .btn-link {
 }
 
 .l1 {
-}
-
-.l2 {
-    background-color: green;
+    background-color: darkgray;
 }
 
 .l3 {
-    background-color: darkgoldenrod;
+    background-color: green;
 }
 
-.l4 {
-    background-color: darkgray;
+.l2 {
+    background-color: darkgoldenrod;
 }
 
 .key {
