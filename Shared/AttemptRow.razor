@@ -1,11 +1,19 @@
-﻿<div class="row">
+﻿@using Wordle.Logic;
+
+<div class="row">
 	@foreach (var letter in Attempt.Letters)
 	{
-		<span class="letter @letter.Styling">@letter.Value</span>
+		<span class="letter @Calculate(letter)">@letter</span>
 	}
 </div>
 
 @code {
 	[Parameter]
 	public Attempt Attempt { get; set; }
+
+	[Parameter]
+	public Dictionary<char, LetterColor> LetterColors { get; set; }
+
+	private LetterColor Calculate(char letter) =>
+		LetterColors.TryGetValue(letter, out var color) ? color : LetterColor.Default;
 }

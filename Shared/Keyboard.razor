@@ -1,4 +1,5 @@
-﻿<div class="row justify-content-center">
+﻿@using Wordle.Logic;
+<div class="row justify-content-center">
 	<KeyboardButton Pressed="AddLetter" Letter="'Q'"></KeyboardButton>
 	<KeyboardButton Pressed="AddLetter" Letter="'W'"></KeyboardButton>
 	<KeyboardButton Pressed="AddLetter" Letter="'E'"></KeyboardButton>
@@ -46,4 +47,7 @@
 
 	[Parameter]
 	public EventCallback<char> AddLetter { get; set; }
+
+	[Parameter]
+	public Dictionary<char, LetterColor> LetterColors { get; set; }
 }

@@ -1,4 +1,7 @@
-﻿@page "/"
+﻿@inject IJSRuntime JSRuntime
+@page "/"
+@using Wordle.Logic;
+@using System.Text.RegularExpressions;
 
 <PageTitle>Wordle</PageTitle>
 
@@ -17,7 +20,7 @@
 	<div class="col-auto">
 		@foreach (var attempt in attempts)
 		{
-			<AttemptRow Attempt="attempt"></AttemptRow>
+			<AttemptRow LetterColors="LetterColors" Attempt="attempt"></AttemptRow>
 		}
 	</div>
 	<div class="col"></div> @* Spacing *@
@@ -25,7 +28,7 @@
 
 <br />
 
-<Keyboard AddLetter="AddLetter" DeleteLetter="DeleteLetter" Submit="Submit"></Keyboard>
+<Keyboard LetterColors="LetterColors" AddLetter="AddLetter" DeleteLetter="DeleteLetter" Submit="Submit"></Keyboard>
 
 @* --- DEBUG --- *@
 <div>
@@ -40,16 +43,33 @@
 <div>
 	<span style="color:white">Row: @index</span>
 </div>
+
+<br />
+
+<div>
+	<span style="color:white">Target: @targetWord</span>
+</div>
+
 @* --- DEBUG --- *@
 
 @code {
 
 	private string targetWord = string.Empty;
 	private int index = 0;
-	private List<Attempt> attempts = Enumerable.Range(0, 6).Select(x => new Attempt()).ToList();
+	private List<Attempt> attempts;
+	private Dictionary<char, LetterColor> LetterColors;
 
-	protected override void OnInitialized() =>
-		targetWord = PickWord();
+	private void Reset()
+	{
+		targetWord = WordDatabase.Pick();
+		attempts = Enumerable.Range(0, 6).Select(x => new Attempt()).ToList();
+		LetterColors = new();
+		StateHasChanged();
+	}
+
+	protected override void OnInitialized() => Reset();
+
+	#region LOGIC
 
 	private void AddLetter(char letter)
 	{
@@ -71,6 +91,10 @@
 		}
 	}
 
+	// TODO: LetterColors logic
+	// TODO: Notify service
+	// TODO: Mobile-first UI design
+	// TODO: Reset logic
 	private void Submit()
 	{
 		var guess = attempts[index].ToString();
@@ -78,7 +102,7 @@
 		{
 			// Either disable the button for <5, or show notification
 		}
-		else if (!WordExists(guess))
+		else if (!WordDatabase.Exists(guess))
 		{
 			// Either disable the button for invalid, or show notification
 		}
@@ -108,19 +132,37 @@
 	private bool WordFound =>
 		attempts[index].ToString() == targetWord;
 
-	// TODO: Move to Database service
-	private bool WordExists(string guess) => true;
+	#endregion
 
-	// TODO: Move to Database service
-	private string PickWord() => "APPLE";
-
-	// TODO: Move to Database service, use all the words from beautiful soup
-	private List<string> Database = new()
+	#region Keyboard_Event
+	protected override async Task OnAfterRenderAsync(bool firstRender)
 	{
-		"APPLE",
-		"INDIE",
-		"AUDIO",
-		"TASTY"
-	};
-}
+		if (firstRender)
+		{
+			await JSRuntime.InvokeAsync<string>("addCustomEventListener", DotNetObjectReference.Create(this));
+		}
+	}
 
+	[JSInvokable]
+	public Task KeyDown(string key)
+	{
+		if (key.Length == 1 && Regex.IsMatch(key, "[a-zA-Z]"))
+		{
+			AddLetter(key.ToUpper()[0]);
+			StateHasChanged();
+		}
+		else if (key == "Enter")
+		{
+			Submit();
+			StateHasChanged();
+
+		}
+		else if (key == "Backspace")
+		{
+			DeleteLetter();
+			StateHasChanged();
+		}
+		return Task.CompletedTask;
+	}
+	#endregion
+}
