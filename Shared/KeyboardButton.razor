@@ -1,8 +1,12 @@
-﻿<button class="key" @onclick="NotifyParent">@Letter</button>
+﻿@using Wordle.Logic;
+<button class="key @($"l-{LetterColors[Letter]}")" @onclick="NotifyParent">@Letter</button>
 
 @code {
 	[Parameter]
 	public char Letter { get; set; }
+
+	[Parameter]
+	public Dictionary<char, LetterColor> LetterColors { get; set; }
 
 	[Parameter]
 	public EventCallback<char> Pressed { get; set; }

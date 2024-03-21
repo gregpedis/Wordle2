@@ -4,7 +4,7 @@ public static class WordDatabase
 {
 	public static string Pick() =>
 		"ABACK";
-		//Dictionary[Random.Shared.Next(0, Dictionary.Length)];
+	//Values[Random.Shared.Next(0, Values.Length)];
 
 	public static bool Exists(string word) =>
 		Lookup.Contains(word);
@@ -2322,5 +2322,5 @@ public static class WordDatabase
 		"ZONAL"
 	};
 
-	private static readonly string[] Dictionary = Lookup.ToArray();
+	private static readonly string[] Values = Lookup.ToArray();
 }

@@ -50,6 +50,10 @@
 	<span style="color:white">Target: @targetWord</span>
 </div>
 
+<div>
+	<span style="color:white">Colors: @string.Join(Environment.NewLine,LetterColors.Select(x => $"{x.Key}:{x.Value}"))</span>
+</div>
+
 @* --- DEBUG --- *@
 
 @code {
@@ -63,7 +67,7 @@
 	{
 		targetWord = WordDatabase.Pick();
 		attempts = Enumerable.Range(0, 6).Select(x => new Attempt()).ToList();
-		LetterColors = new();
+		LetterColors = LetterColorService.Default;
 		StateHasChanged();
 	}
 
@@ -76,7 +80,7 @@
 		var soFar = attempts[index].ToString().TrimEnd();
 		if (soFar.Length < 5)
 		{
-			var newValue = (soFar + letter).PadRight(5);
+			var newValue = (soFar + char.ToUpper(letter)).PadRight(5);
 			attempts[index].SetWord(newValue);
 		}
 	}
@@ -92,9 +96,9 @@
 	}
 
 	// TODO: LetterColors logic
+	// TODO: Reset logic
 	// TODO: Notify service
 	// TODO: Mobile-first UI design
-	// TODO: Reset logic
 	private void Submit()
 	{
 		var guess = attempts[index].ToString();
@@ -108,6 +112,8 @@
 		}
 		else
 		{
+			LetterColorService.Update(guess, targetWord, LetterColors);
+
 			// colorize letters
 			if (WordFound)
 			{
@@ -149,19 +155,17 @@
 		if (key.Length == 1 && Regex.IsMatch(key, "[a-zA-Z]"))
 		{
 			AddLetter(key.ToUpper()[0]);
-			StateHasChanged();
 		}
 		else if (key == "Enter")
 		{
 			Submit();
-			StateHasChanged();
 
 		}
 		else if (key == "Backspace")
 		{
 			DeleteLetter();
-			StateHasChanged();
 		}
+		StateHasChanged();
 		return Task.CompletedTask;
 	}
 	#endregion

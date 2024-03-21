@@ -1,36 +1,36 @@
 ﻿@using Wordle.Logic;
 <div class="row justify-content-center">
-	<KeyboardButton Pressed="AddLetter" Letter="'Q'"></KeyboardButton>
-	<KeyboardButton Pressed="AddLetter" Letter="'W'"></KeyboardButton>
-	<KeyboardButton Pressed="AddLetter" Letter="'E'"></KeyboardButton>
-	<KeyboardButton Pressed="AddLetter" Letter="'R'"></KeyboardButton>
-	<KeyboardButton Pressed="AddLetter" Letter="'T'"></KeyboardButton>
-	<KeyboardButton Pressed="AddLetter" Letter="'Y'"></KeyboardButton>
-	<KeyboardButton Pressed="AddLetter" Letter="'U'"></KeyboardButton>
-	<KeyboardButton Pressed="AddLetter" Letter="'I'"></KeyboardButton>
-	<KeyboardButton Pressed="AddLetter" Letter="'O'"></KeyboardButton>
-	<KeyboardButton Pressed="AddLetter" Letter="'P'"></KeyboardButton>
+	<KeyboardButton LetterColors="LetterColors" Pressed="AddLetter" Letter="'Q'"></KeyboardButton>
+	<KeyboardButton LetterColors="LetterColors" Pressed="AddLetter" Letter="'W'"></KeyboardButton>
+	<KeyboardButton LetterColors="LetterColors" Pressed="AddLetter" Letter="'E'"></KeyboardButton>
+	<KeyboardButton LetterColors="LetterColors" Pressed="AddLetter" Letter="'R'"></KeyboardButton>
+	<KeyboardButton LetterColors="LetterColors" Pressed="AddLetter" Letter="'T'"></KeyboardButton>
+	<KeyboardButton LetterColors="LetterColors" Pressed="AddLetter" Letter="'Y'"></KeyboardButton>
+	<KeyboardButton LetterColors="LetterColors" Pressed="AddLetter" Letter="'U'"></KeyboardButton>
+	<KeyboardButton LetterColors="LetterColors" Pressed="AddLetter" Letter="'I'"></KeyboardButton>
+	<KeyboardButton LetterColors="LetterColors" Pressed="AddLetter" Letter="'O'"></KeyboardButton>
+	<KeyboardButton LetterColors="LetterColors" Pressed="AddLetter" Letter="'P'"></KeyboardButton>
 </div>
 <div class="row justify-content-center">
-	<KeyboardButton Pressed="AddLetter" Letter="'A'"></KeyboardButton>
-	<KeyboardButton Pressed="AddLetter" Letter="'S'"></KeyboardButton>
-	<KeyboardButton Pressed="AddLetter" Letter="'D'"></KeyboardButton>
-	<KeyboardButton Pressed="AddLetter" Letter="'F'"></KeyboardButton>
-	<KeyboardButton Pressed="AddLetter" Letter="'G'"></KeyboardButton>
-	<KeyboardButton Pressed="AddLetter" Letter="'H'"></KeyboardButton>
-	<KeyboardButton Pressed="AddLetter" Letter="'J'"></KeyboardButton>
-	<KeyboardButton Pressed="AddLetter" Letter="'K'"></KeyboardButton>
-	<KeyboardButton Pressed="AddLetter" Letter="'L'"></KeyboardButton>
+	<KeyboardButton LetterColors="LetterColors" Pressed="AddLetter" Letter="'A'"></KeyboardButton>
+	<KeyboardButton LetterColors="LetterColors" Pressed="AddLetter" Letter="'S'"></KeyboardButton>
+	<KeyboardButton LetterColors="LetterColors" Pressed="AddLetter" Letter="'D'"></KeyboardButton>
+	<KeyboardButton LetterColors="LetterColors" Pressed="AddLetter" Letter="'F'"></KeyboardButton>
+	<KeyboardButton LetterColors="LetterColors" Pressed="AddLetter" Letter="'G'"></KeyboardButton>
+	<KeyboardButton LetterColors="LetterColors" Pressed="AddLetter" Letter="'H'"></KeyboardButton>
+	<KeyboardButton LetterColors="LetterColors" Pressed="AddLetter" Letter="'J'"></KeyboardButton>
+	<KeyboardButton LetterColors="LetterColors" Pressed="AddLetter" Letter="'K'"></KeyboardButton>
+	<KeyboardButton LetterColors="LetterColors" Pressed="AddLetter" Letter="'L'"></KeyboardButton>
 </div>
 <div class="row justify-content-center">
 	<button class="big-key" @onclick="Submit">ENTER</button>
-	<KeyboardButton Pressed="AddLetter" Letter="'Z'"></KeyboardButton>
-	<KeyboardButton Pressed="AddLetter" Letter="'X'"></KeyboardButton>
-	<KeyboardButton Pressed="AddLetter" Letter="'C'"></KeyboardButton>
-	<KeyboardButton Pressed="AddLetter" Letter="'V'"></KeyboardButton>
-	<KeyboardButton Pressed="AddLetter" Letter="'B'"></KeyboardButton>
-	<KeyboardButton Pressed="AddLetter" Letter="'N'"></KeyboardButton>
-	<KeyboardButton Pressed="AddLetter" Letter="'M'"></KeyboardButton>
+	<KeyboardButton LetterColors="LetterColors" Pressed="AddLetter" Letter="'Z'"></KeyboardButton>
+	<KeyboardButton LetterColors="LetterColors" Pressed="AddLetter" Letter="'X'"></KeyboardButton>
+	<KeyboardButton LetterColors="LetterColors" Pressed="AddLetter" Letter="'C'"></KeyboardButton>
+	<KeyboardButton LetterColors="LetterColors" Pressed="AddLetter" Letter="'V'"></KeyboardButton>
+	<KeyboardButton LetterColors="LetterColors" Pressed="AddLetter" Letter="'B'"></KeyboardButton>
+	<KeyboardButton LetterColors="LetterColors" Pressed="AddLetter" Letter="'N'"></KeyboardButton>
+	<KeyboardButton LetterColors="LetterColors" Pressed="AddLetter" Letter="'M'"></KeyboardButton>
 	<button class="big-key" @onclick="DeleteLetter">
 		<svg aria-hidden="true" xmlns="http://www.w3.org/2000/svg" height="20" viewBox="0 0 24 24" width="20" class="game-icon" data-testid="icon-backspace">
 			<path fill="var(--color-tone-1)" d="M22 3H7c-.69 0-1.23.35-1.59.88L0 12l5.41 8.11c.36.53.9.89 1.59.89h15c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm0 16H7.07L2.4 12l4.66-7H22v14zm-11.59-2L14 13.41 17.59 17 19 15.59 15.41 12 19 8.41 17.59 7 14 10.59 10.41 7 9 8.41 12.59 12 9 15.59z"></path>

@@ -43,7 +43,7 @@ a, .btn-link {
 .letter {
     display: flex;
     justify-content: center;
-    align-items:center;
+    align-items: center;
     width: 100px;
     height: 100px;
     border: 1px solid gray; /* Add styling for the letter container */
@@ -54,16 +54,20 @@ a, .btn-link {
     color: white;
 }
 
-.l1 {
-    background-color: darkgray;
+.l-Gray {
+    background-color: #181513;
 }
 
-.l3 {
+.l-Yellow {
+    background-color: darkgoldenrod;
+}
+
+.l-Green {
     background-color: green;
 }
 
-.l2 {
-    background-color: darkgoldenrod;
+.key:not(.l-Gray, .l-Yellow, .l-Green) {
+    background-color: #868686; /* Button default background color */
 }
 
 .key {
@@ -73,13 +77,11 @@ a, .btn-link {
     font-size: 1.25em;
     width: 45px; /* Adjust width as needed */
     height: 60px; /* Adjust height as needed */
-    background-color: #868686; /* Button background color */
     cursor: pointer; /* Cursor style on hover */
     margin-left: 10px;
-    margin-top:5px;
+    margin-top: 5px;
     border-radius: 7px;
 }
-
 
 .big-key {
     display: flex;
@@ -93,10 +95,4 @@ a, .btn-link {
     cursor: pointer; /* Cursor style on hover */
     margin-left: 10px;
     border-radius: 7px;
-}
-
-.thingy {
-    justify-content: center;
-    align-items: center;
-    display: grid;
 }

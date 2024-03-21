@@ -1,10 +1,10 @@
 ﻿namespace Wordle.Logic
 {
-	public enum LetterColor
+	public enum LetterColor : short
 	{
 		Default = 0,
-		Grayed = 1,
-		Yellow = 1,
-		Green = 2,
+		Gray = 1,
+		Yellow = 2,
+		Green = 3,
 	}
 }

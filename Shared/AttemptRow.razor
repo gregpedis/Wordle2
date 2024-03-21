@@ -3,7 +3,7 @@
 <div class="row">
 	@foreach (var letter in Attempt.Letters)
 	{
-		<span class="letter @Calculate(letter)">@letter</span>
+		<span class="letter @($"l-{LetterColors[letter]}")">@letter</span>
 	}
 </div>
 
@@ -13,7 +13,4 @@
 
 	[Parameter]
 	public Dictionary<char, LetterColor> LetterColors { get; set; }
-
-	private LetterColor Calculate(char letter) =>
-		LetterColors.TryGetValue(letter, out var color) ? color : LetterColor.Default;
 }
