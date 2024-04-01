@@ -3,13 +3,12 @@
 public static class WordDatabase
 {
 	public static string Pick() =>
-		"ABACK";
-	//Values[Random.Shared.Next(0, Values.Length)];
+	WordleWords[Random.Shared.Next(0, WordleWords.Length)];
 
 	public static bool Exists(string word) =>
-		Lookup.Contains(word);
+		AllWords.Contains(word);
 
-	private static readonly HashSet<string> Lookup = new()
+	private static readonly string[] WordleWords = new[]
 	{
 		"ABACK",
 		"ABASE",
@@ -2322,5 +2321,6 @@ public static class WordDatabase
 		"ZONAL"
 	};
 
-	private static readonly string[] Values = Lookup.ToArray();
+	// TODO: Get a list of all the real words
+	private static readonly string[] AllWords = WordleWords.ToArray();
 }

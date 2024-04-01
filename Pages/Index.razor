@@ -20,7 +20,7 @@
 	<div class="col-auto">
 		@foreach (var attempt in attempts)
 		{
-			<AttemptRow LetterColors="LetterColors" Attempt="attempt"></AttemptRow>
+			<AttemptRow Attempt="attempt"></AttemptRow>
 		}
 	</div>
 	<div class="col"></div> @* Spacing *@
@@ -41,7 +41,7 @@
 </div>
 
 <div>
-	<span style="color:white">Row: @index</span>
+	<span style="color:white">Row: @attemptIndex</span>
 </div>
 
 <br />
@@ -59,7 +59,7 @@
 @code {
 
 	private string targetWord = string.Empty;
-	private int index = 0;
+	private int attemptIndex = 0;
 	private List<Attempt> attempts;
 	private Dictionary<char, LetterColor> LetterColors;
 
@@ -77,44 +77,44 @@
 
 	private void AddLetter(char letter)
 	{
-		var soFar = attempts[index].ToString().TrimEnd();
+		var soFar = attempts[attemptIndex].ToString();
 		if (soFar.Length < 5)
 		{
 			var newValue = (soFar + char.ToUpper(letter)).PadRight(5);
-			attempts[index].SetWord(newValue);
+			attempts[attemptIndex].SetWord(newValue);
 		}
 	}
 
 	private void DeleteLetter()
 	{
-		var soFar = attempts[index].ToString().TrimEnd();
+		var soFar = attempts[attemptIndex].ToString();
 		if (soFar.Length > 0)
 		{
 			var newValue = soFar.Substring(0, soFar.Length - 1).PadRight(5);
-			attempts[index].SetWord(newValue);
+			attempts[attemptIndex].SetWord(newValue);
 		}
 	}
 
-	// TODO: LetterColors logic
 	// TODO: Reset logic
 	// TODO: Notify service
 	// TODO: Mobile-first UI design
 	private void Submit()
 	{
-		var guess = attempts[index].ToString();
-		if (guess.TrimEnd().Length < 5)
+		var guess = attempts[attemptIndex].ToString();
+		if (guess.Length < 5)
 		{
 			// Either disable the button for <5, or show notification
 		}
-		else if (!WordDatabase.Exists(guess))
+		// else if (!WordDatabase.Exists(guess))
+		else if (false)
 		{
 			// Either disable the button for invalid, or show notification
 		}
 		else
 		{
-			LetterColorService.Update(guess, targetWord, LetterColors);
+			var newColors = LetterColorService.Update(guess, targetWord, LetterColors);
+			attempts[attemptIndex].SetColors(newColors);
 
-			// colorize letters
 			if (WordFound)
 			{
 				// show winning message
@@ -122,21 +122,21 @@
 			}
 			else
 			{
-				if (index == 5)
+				if (attemptIndex == 5)
 				{
 					// show losing message
 					// show button for replay
 				}
 				else
 				{
-					index++;
+					attemptIndex++;
 				}
 			}
 		}
 	}
 
 	private bool WordFound =>
-		attempts[index].ToString() == targetWord;
+		attempts[attemptIndex].ToString() == targetWord;
 
 	#endregion
 

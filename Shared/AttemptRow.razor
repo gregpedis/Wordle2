@@ -1,16 +1,13 @@
 ﻿@using Wordle.Logic;
 
 <div class="row">
-	@foreach (var letter in Attempt.Letters)
+	@for (int i = 0; i < 5; i++)
 	{
-		<span class="letter @($"l-{LetterColors[letter]}")">@letter</span>
+		<span class="letter @($"l-{Attempt[i].Color}")">@Attempt[i].Letter</span>
 	}
 </div>
 
 @code {
 	[Parameter]
 	public Attempt Attempt { get; set; }
-
-	[Parameter]
-	public Dictionary<char, LetterColor> LetterColors { get; set; }
 }
