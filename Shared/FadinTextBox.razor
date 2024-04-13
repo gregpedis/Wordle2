@@ -1,0 +1,38 @@
+﻿<div class="row justify-content-center">
+	<div class="col"></div>
+	<div class="col-auto">
+		<input type="text" class="notify @fadeClass" style="color:@color" @bind="Text" readonly />
+	</div>
+	<div class="col"></div>
+</div>
+<br />
+
+@code {
+	private string Text { get; set; } = "Word does not exist";
+	private string fadeClass = "notify-init";
+	private string color = "green";
+
+	[Parameter]
+	public EventCallback Reset { get; set; }
+
+	public async Task Notify(string text, string color)
+	{
+		Text = text;
+		this.color = color;
+		FadeIn();
+		await Task.Delay(1000);
+		FadeOut();
+	}
+
+	private void FadeIn()
+	{
+		fadeClass = "notify-show";
+		StateHasChanged();
+	}
+
+	private void FadeOut()
+	{
+		fadeClass = "notify-hide";
+		StateHasChanged();
+	}
+}

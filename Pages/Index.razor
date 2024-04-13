@@ -15,6 +15,7 @@
 
 <br />
 
+@* TODO: Make this a component *@
 <div class="row justify-content-center">
 	<div class="col"></div> @* Spacing *@
 	<div class="col-auto">
@@ -29,42 +30,27 @@
 <br />
 
 <Keyboard LetterColors="LetterColors" AddLetter="AddLetter" DeleteLetter="DeleteLetter" Submit="Submit"></Keyboard>
-
-@* --- DEBUG --- *@
-<div>
-	@for (int i = 0; i < attempts.Count; i++)
-	{
-		<span style="color:white">Index @i: @attempts[i].ToString()</span>
-		<br />
-	}
-	}
-</div>
-
-<div>
-	<span style="color:white">Row: @attemptIndex</span>
-</div>
-
 <br />
+<FadinTextBox @ref="notification" Reset="Reset" />
+<br />
+<button @onclick=Reset>RESET</button>
 
-<div>
-	<span style="color:white">Target: @targetWord</span>
-</div>
-
-<div>
-	<span style="color:white">Colors: @string.Join(Environment.NewLine,LetterColors.Select(x => $"{x.Key}:{x.Value}"))</span>
-</div>
-
-@* --- DEBUG --- *@
+@* <span>@targetWord</span> *@
 
 @code {
 
-	private string targetWord = string.Empty;
 	private int attemptIndex = 0;
 	private List<Attempt> attempts;
+	private string targetWord = string.Empty;
 	private Dictionary<char, LetterColor> LetterColors;
+
+	private FadinTextBox notification;
+	private bool gameOver;
 
 	private void Reset()
 	{
+		gameOver = false;
+		attemptIndex = 0;
 		targetWord = WordDatabase.Pick();
 		attempts = Enumerable.Range(0, 6).Select(x => new Attempt()).ToList();
 		LetterColors = LetterColorService.Default;
@@ -77,6 +63,10 @@
 
 	private void AddLetter(char letter)
 	{
+		if (gameOver)
+		{
+			return;
+		}
 		var soFar = attempts[attemptIndex].ToString();
 		if (soFar.Length < 5)
 		{
@@ -87,6 +77,10 @@
 
 	private void DeleteLetter()
 	{
+		if (gameOver)
+		{
+			return;
+		}
 		var soFar = attempts[attemptIndex].ToString();
 		if (soFar.Length > 0)
 		{
@@ -96,35 +90,41 @@
 	}
 
 	// TODO: Reset logic
-	// TODO: Notify service
 	// TODO: Mobile-first UI design
-	private void Submit()
+	private async Task Submit()
 	{
+		if (gameOver)
+		{
+			return;
+		}
 		var guess = attempts[attemptIndex].ToString();
 		if (guess.Length < 5)
 		{
-			// Either disable the button for <5, or show notification
+			await notification.Notify("Word needs 5 letters", "yellow");
 		}
-		// else if (!WordDatabase.Exists(guess))
-		else if (false)
+		else if (!WordDatabase.Exists(guess))
 		{
-			// Either disable the button for invalid, or show notification
+			await notification.Notify("Word does not exist", "yellow");
 		}
 		else
 		{
 			var newColors = LetterColorService.Update(guess, targetWord, LetterColors);
 			attempts[attemptIndex].SetColors(newColors);
+			StateHasChanged();
 
 			if (WordFound)
 			{
-				// show winning message
+				gameOver = true;
+				await notification.Notify("You won! :)", "green");
 				// show button for replay
 			}
 			else
 			{
 				if (attemptIndex == 5)
 				{
-					// show losing message
+					gameOver = true;
+					Console.WriteLine(targetWord);
+					await notification.Notify($"[{targetWord}] You lost. :(", "red");
 					// show button for replay
 				}
 				else
@@ -150,7 +150,7 @@
 	}
 
 	[JSInvokable]
-	public Task KeyDown(string key)
+	public async Task KeyDown(string key)
 	{
 		if (key.Length == 1 && Regex.IsMatch(key, "[a-zA-Z]"))
 		{
@@ -158,7 +158,7 @@
 		}
 		else if (key == "Enter")
 		{
-			Submit();
+			await Submit();
 
 		}
 		else if (key == "Backspace")
@@ -166,7 +166,6 @@
 			DeleteLetter();
 		}
 		StateHasChanged();
-		return Task.CompletedTask;
 	}
 	#endregion
 }
