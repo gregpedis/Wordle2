@@ -1,7 +1,7 @@
 {
   "entryAssembly": "Wordle",
   "resources": {
-    "hash": "sha256-rVnoyQakRXx3m8yQtYehKymi0KB8p5euXTUErru+qYM=",
+    "hash": "sha256-gor4L4dTtWUWKBFv0I5u3kCuheBcHjFiiQW9ASPBh+A=",
     "runtime": {
       "dotnet.7.0.18.yczjibhkds.js": "sha256-lsqy0PQ8nf1/0sSlLGe3Kfwi8V0Q1QzVy5+AqtJ3cfU=",
       "dotnet.timezones.blat": "sha256-aPcvvHoFVwCzeRxTOvMTcrI2l2HKJO0sjSN7IF10LUQ=",
@@ -38,7 +38,7 @@
       "System.Text.Encodings.Web.dll": "sha256-FJ5LjDh2C8Se4afk5DyYGXm7PdIiHrIu3CbYvSrI1gw=",
       "System.Text.Json.dll": "sha256-cK7uzlJYLrknPFlkK4AQYoUIf3YugyIHiLatQgjSPi0=",
       "System.Text.RegularExpressions.dll": "sha256-IYZVF8vGaA5KwicuQVAlq4Yf3k3PqJ0FMVe8JgEoyZA=",
-      "Wordle.dll": "sha256-IlCZSyfSKgcBx9ur64NUeAC8LesYnDjZ1N9rfGvKiF8="
+      "Wordle.dll": "sha256-BmSybZXibK9aWbv1FqRO+Vz4q0pPCcdT2zeuVNLqEls="
     },
     "runtimeAssets": {
       "dotnet.wasm": {
