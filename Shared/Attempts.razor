@@ -1,0 +1,17 @@
+﻿@using Wordle.Logic;
+
+<div class="row justify-content-center">
+	<div class="col"></div> @* Spacing *@
+	<div class="col-auto">
+		@foreach (var attempt in AttemptRows)
+		{
+			<AttemptRow Attempt="attempt"></AttemptRow>
+		}
+	</div>
+	<div class="col"></div> @* Spacing *@
+</div>
+
+@code {
+	[Parameter]
+	public List<Attempt> AttemptRows { get; set; }
+}

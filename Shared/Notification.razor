@@ -17,11 +17,16 @@
 
 	public async Task Notify(string text, string color)
 	{
+		NotifyLast(text, color);
+		await Task.Delay(1000);
+		FadeOut();
+	}
+
+	public void NotifyLast(string text, string color)
+	{
 		Text = text;
 		this.color = color;
 		FadeIn();
-		await Task.Delay(1000);
-		FadeOut();
 	}
 
 	private void FadeIn()

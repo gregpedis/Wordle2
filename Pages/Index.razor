@@ -6,48 +6,36 @@
 <PageTitle>Wordle</PageTitle>
 
 <div class="row justify-content-center">
-	<div class="col"></div> @* Spacing *@
+	<div class="col"></div>
 	<div class="col-auto">
 		<h1 style="color:gray">Wordle</h1>
 	</div>
-	<div class="col"></div> @* Spacing *@
+	<div class="col"></div>
 </div>
 
 <br />
-
-@* TODO: Make this a component *@
-<div class="row justify-content-center">
-	<div class="col"></div> @* Spacing *@
-	<div class="col-auto">
-		@foreach (var attempt in attempts)
-		{
-			<AttemptRow Attempt="attempt"></AttemptRow>
-		}
-	</div>
-	<div class="col"></div> @* Spacing *@
-</div>
-
+<Attempts AttemptRows=@attempts></Attempts>
 <br />
 
-<Keyboard LetterColors="LetterColors" AddLetter="AddLetter" DeleteLetter="DeleteLetter" Submit="Submit"></Keyboard>
-<br />
-<FadinTextBox @ref="notification" Reset="Reset" />
-<br />
-<button @onclick=Reset>RESET</button>
+<Keyboard LetterColors="LetterColors"
+		  AddLetter="AddLetter"
+		  DeleteLetter="DeleteLetter"
+		  Submit="Submit" />
 
-@* <span>@targetWord</span> *@
+<br />
+<Notification @ref="notification" />
+<br />
 
 @code {
-
 	private int attemptIndex = 0;
 	private List<Attempt> attempts;
 	private string targetWord = string.Empty;
 	private Dictionary<char, LetterColor> LetterColors;
 
-	private FadinTextBox notification;
+	private Notification notification;
 	private bool gameOver;
 
-	private void Reset()
+	protected override void OnInitialized()
 	{
 		gameOver = false;
 		attemptIndex = 0;
@@ -56,8 +44,6 @@
 		LetterColors = LetterColorService.Default;
 		StateHasChanged();
 	}
-
-	protected override void OnInitialized() => Reset();
 
 	#region LOGIC
 
@@ -89,7 +75,6 @@
 		}
 	}
 
-	// TODO: Reset logic
 	// TODO: Mobile-first UI design
 	private async Task Submit()
 	{
@@ -115,8 +100,7 @@
 			if (WordFound)
 			{
 				gameOver = true;
-				await notification.Notify("You won! :)", "green");
-				// show button for replay
+				notification.NotifyLast("You won! :)", "green");
 			}
 			else
 			{
@@ -124,8 +108,7 @@
 				{
 					gameOver = true;
 					Console.WriteLine(targetWord);
-					await notification.Notify($"[{targetWord}] You lost. :(", "red");
-					// show button for replay
+					notification.NotifyLast($"[{targetWord}] You lost. :(", "red");
 				}
 				else
 				{
@@ -145,7 +128,9 @@
 	{
 		if (firstRender)
 		{
-			await JSRuntime.InvokeAsync<string>("addCustomEventListener", DotNetObjectReference.Create(this));
+			await JSRuntime.InvokeAsync<string>(
+				"addCustomEventListener",
+				DotNetObjectReference.Create(this));
 		}
 	}
 
